@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { auth } from '../database/config';
 import '../styles/login.css';
 
@@ -10,6 +10,7 @@ const Login = () => {
   const [userName, setUserName] = useState(null);
   const [password, setPassword] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const history = useHistory();
 
   const onUserNameChange = e => {
     setUserName(e.target.value);
@@ -27,6 +28,7 @@ const Login = () => {
       )
         .then(res => {
           setIsLoading(false);
+          history.push('/');
           console.log(res);
         })
         .catch(err => {

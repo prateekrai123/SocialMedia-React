@@ -2,7 +2,7 @@
 /* eslint-disable arrow-body-style */
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { auth } from '../database/config';
 import '../styles/register.css';
 
@@ -11,6 +11,7 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const history = useHistory();
 
   const onNameChange = event => {
     setName(event.target.value);
@@ -30,6 +31,7 @@ const Register = () => {
       await Promise.resolve(
         createUserWithEmailAndPassword(auth, email, password)
           .then(res => {
+            history.push('/');
             console.log(res);
             setIsLoading(false);
           })
